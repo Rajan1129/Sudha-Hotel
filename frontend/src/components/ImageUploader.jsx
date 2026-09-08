@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Icon from './Icon';
 import { uploadFile } from '../api/upload';
+import { getImageUrl } from '../api/client';
 
 export default function ImageUploader({ value, onChange, label = 'Upload Image', multiple = false }) {
   const [uploading, setUploading] = useState(false);
@@ -50,7 +51,7 @@ export default function ImageUploader({ value, onChange, label = 'Upload Image',
         <div className="flex flex-wrap gap-space-xs pb-space-2xs">
           {currentValues.map((imgUrl, idx) => (
             <div key={imgUrl + idx} className="relative w-20 h-20 rounded-xl overflow-hidden border border-outline-variant/30 shadow-sm group">
-              <img src={imgUrl} alt={`Uploaded preview ${idx + 1}`} className="w-full h-full object-cover" />
+              <img src={getImageUrl(imgUrl)} alt={`Uploaded preview ${idx + 1}`} className="w-full h-full object-cover" />
               <button
                 type="button"
                 onClick={() => handleRemoveImage(idx)}

@@ -4,12 +4,18 @@ const { protect } = require('../middleware/auth');
 
 const router = express.Router();
 
+function getFullFileUrl(req, filename) {
+  const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+  const host = req.get('host');
+  return `${protocol}://${host}/uploads/${filename}`;
+}
+
 // POST /api/upload - handles single image file upload
 router.post('/', upload.single('file'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: 'No file uploaded.' });
   }
-  const fileUrl = `/uploads/${req.file.filename}`;
+  const fileUrl = getFullFileUrl(req, req.file.filename);
   res.json({ url: fileUrl, filename: req.file.filename });
 });
 
@@ -18,7 +24,7 @@ router.post('/multiple', upload.array('files', 10), (req, res) => {
   if (!req.files || req.files.length === 0) {
     return res.status(400).json({ message: 'No files uploaded.' });
   }
-  const urls = req.files.map((file) => `/uploads/${file.filename}`);
+  const urls = req.files.map((file) => getFullFileUrl(req, file.filename));
   res.json({ urls });
 });
 

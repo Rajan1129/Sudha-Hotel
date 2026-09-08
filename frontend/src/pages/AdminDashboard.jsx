@@ -7,6 +7,7 @@ import { fetchDashboardSummary } from '../api/dashboard';
 import { fetchBookings, updateBookingStatus } from '../api/bookings';
 import { fetchInquiries, resolveInquiry, clearAllInquiries } from '../api/inquiries';
 import { fetchSettings, updateSettings } from '../api/settings';
+import { getImageUrl } from '../api/client';
 
 function StatCard({ icon, label, value, sub, positive }) {
   return (
@@ -295,7 +296,7 @@ export default function AdminDashboard() {
                   </span>
                   {b.paymentProofImage && (
                     <a
-                      href={b.paymentProofImage}
+                      href={getImageUrl(b.paymentProofImage)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary font-bold underline hover:text-secondary text-label-xs"

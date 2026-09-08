@@ -6,6 +6,7 @@ import { fetchRoom } from '../api/rooms';
 import { quoteBooking, createBooking } from '../api/bookings';
 import { fetchSettings } from '../api/settings';
 import ImageUploader from '../components/ImageUploader';
+import { getImageUrl } from '../api/client';
 
 const STEPS = ['Suite', 'Details', 'Payment & Fare'];
 
@@ -334,7 +335,7 @@ export default function Checkout() {
                   <div className="w-44 h-44 rounded-2xl overflow-hidden bg-white p-2 border border-outline-variant/40 shadow-inner flex items-center justify-center flex-shrink-0">
                     <img
                       src={
-                        settings?.upiQrImage ||
+                        settings?.upiQrImage ? getImageUrl(settings.upiQrImage) :
                         `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(
                           `upi://pay?pa=${settings?.upiId || '9418703201@upi'}&pn=SudhaHotel&am=${quote?.totalAmount || 0}&cu=INR`
                         )}`
