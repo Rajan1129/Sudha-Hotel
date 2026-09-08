@@ -340,6 +340,12 @@ export default function Checkout() {
                           `upi://pay?pa=${settings?.upiId || '9418703201@upi'}&pn=SudhaHotel&am=${quote?.totalAmount || 0}&cu=INR`
                         )}`
                       }
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(
+                          `upi://pay?pa=${settings?.upiId || '9418703201@upi'}&pn=SudhaHotel&am=${quote?.totalAmount || 0}&cu=INR`
+                        )}`;
+                      }}
                       alt="Sudha Hotel Owner UPI QR Scanner"
                       className="w-full h-full object-contain"
                     />

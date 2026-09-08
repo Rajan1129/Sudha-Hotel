@@ -705,11 +705,17 @@ export default function MasterAdminConsole() {
             <div>
               <span className="text-label-sm text-secondary uppercase font-bold">Owner UPI QR Code</span>
               <p className="text-label-md font-bold text-primary">{settings.upiId || '9418703201@upi'}</p>
-              {settings.upiQrImage ? (
-                <img src={getImageUrl(settings.upiQrImage)} alt="Owner UPI QR Scanner" className="w-24 h-24 mt-1 rounded-lg border object-cover shadow-sm" />
-              ) : (
-                <p className="text-label-sm text-amber-700 italic mt-1">No QR image uploaded yet (Default generator active)</p>
-              )}
+              <img
+                src={settings.upiQrImage ? getImageUrl(settings.upiQrImage) : `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(`upi://pay?pa=${settings?.upiId || '9418703201@upi'}&pn=SudhaHotel&cu=INR`)}`}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(
+                    `upi://pay?pa=${settings?.upiId || '9418703201@upi'}&pn=SudhaHotel&cu=INR`
+                  )}`;
+                }}
+                alt="Owner UPI QR Scanner"
+                className="w-24 h-24 mt-1 rounded-lg border object-cover shadow-sm"
+              />
             </div>
 
             <div>
