@@ -13,6 +13,7 @@ import { fetchBookings, updateBookingStatus, deleteBooking } from '../api/bookin
 import { fetchAllReviews, approveReview, deleteReview } from '../api/reviews';
 import { fetchInquiries, resolveInquiry, deleteInquiry, clearAllInquiries } from '../api/inquiries';
 import { fetchSettings, updateSettings } from '../api/settings';
+import { getImageUrl } from '../api/client';
 
 const EMPTY_ROOM = {
   name: '',
@@ -289,7 +290,7 @@ export default function MasterAdminConsole() {
               {rooms.map((room) => (
                 <tr key={room._id} className="border-b border-outline-variant/20 hover:bg-surface-container-low/50 transition-colors">
                   <td className="p-space-sm font-semibold text-primary flex items-center gap-space-xs">
-                    <img src={room.images?.[0]} alt={room.name} className="w-10 h-10 rounded-lg object-cover" />
+                    <img src={getImageUrl(room.images?.[0])} alt={room.name} className="w-10 h-10 rounded-lg object-cover" />
                     <span>{room.name}</span>
                   </td>
                   <td className="p-space-sm text-on-surface-variant">{room.category}</td>
@@ -316,7 +317,7 @@ export default function MasterAdminConsole() {
         <div className="md:hidden flex flex-col gap-space-sm">
           {rooms.map((room) => (
             <div key={room._id} className="p-space-sm rounded-xl bg-surface-container-lowest shadow-sm flex gap-space-sm items-center">
-              <img src={room.images?.[0]} alt={room.name} className="w-16 h-16 rounded-lg object-cover flex-shrink-0" />
+              <img src={getImageUrl(room.images?.[0])} alt={room.name} className="w-16 h-16 rounded-lg object-cover flex-shrink-0" />
               <div className="flex-1 min-w-0">
                 <p className="text-label-md font-bold text-primary truncate">{room.name}</p>
                 <span
@@ -361,7 +362,7 @@ export default function MasterAdminConsole() {
               {venues.map((v) => (
                 <tr key={v._id} className="border-b border-outline-variant/20 hover:bg-surface-container-low/50 transition-colors">
                   <td className="p-space-sm font-semibold text-primary flex items-center gap-space-xs">
-                    <img src={v.image} alt={v.name} className="w-10 h-10 rounded-lg object-cover" />
+                    <img src={getImageUrl(v.image)} alt={v.name} className="w-10 h-10 rounded-lg object-cover" />
                     <span>{v.name}</span>
                   </td>
                   <td className="p-space-sm text-on-surface-variant">Up to {v.capacity} Guests</td>
@@ -387,7 +388,7 @@ export default function MasterAdminConsole() {
         <div className="md:hidden flex flex-col gap-space-sm">
           {venues.map((v) => (
             <div key={v._id} className="p-space-sm rounded-xl bg-surface-container-lowest shadow-sm flex gap-space-sm items-center">
-              <img src={v.image} alt={v.name} className="w-16 h-16 rounded-lg object-cover flex-shrink-0" />
+              <img src={getImageUrl(v.image)} alt={v.name} className="w-16 h-16 rounded-lg object-cover flex-shrink-0" />
               <div className="flex-1 min-w-0">
                 <p className="text-label-md font-bold text-primary truncate">{v.name}</p>
                 <p className="text-label-sm text-on-surface-variant">Up to {v.capacity} guests · ₹{v.basePrice.toLocaleString('en-IN')}</p>
@@ -705,7 +706,7 @@ export default function MasterAdminConsole() {
               <span className="text-label-sm text-secondary uppercase font-bold">Owner UPI QR Code</span>
               <p className="text-label-md font-bold text-primary">{settings.upiId || '9418703201@upi'}</p>
               {settings.upiQrImage ? (
-                <img src={settings.upiQrImage} alt="Owner UPI QR Scanner" className="w-24 h-24 mt-1 rounded-lg border object-cover shadow-sm" />
+                <img src={getImageUrl(settings.upiQrImage)} alt="Owner UPI QR Scanner" className="w-24 h-24 mt-1 rounded-lg border object-cover shadow-sm" />
               ) : (
                 <p className="text-label-sm text-amber-700 italic mt-1">No QR image uploaded yet (Default generator active)</p>
               )}

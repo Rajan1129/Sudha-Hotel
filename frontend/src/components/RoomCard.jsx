@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Icon from './Icon';
 import { useSearch } from '../context/SearchContext';
+import { getImageUrl } from '../api/client';
 
 export default function RoomCard({ room, onDetails }) {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ export default function RoomCard({ room, onDetails }) {
       {/* Room Image Container */}
       <div className="relative h-64 sm:h-72 overflow-hidden">
         <img
-          src={room.images?.[0]}
+          src={getImageUrl(room.images?.[0])}
           alt={room.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
         />
